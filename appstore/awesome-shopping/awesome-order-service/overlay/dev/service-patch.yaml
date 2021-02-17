@@ -1,8 +1,0 @@
-- op: add
-  path: "/spec/type"
-  value: NodePort
-  
-- op: replace
-  path: "/spec/ports/0/port"
-  value: 8080
-

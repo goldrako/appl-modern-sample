@@ -34,3 +34,4 @@ patchesStrategicMerge:
   # - ../shared/serviceport-patch.yaml
   - ../shared/spec-patch.yaml
   - ../shared/configmap-reader-patch.yaml
+  # - lb-patch.yaml
