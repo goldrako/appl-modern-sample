@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: account-app
+  labels:
+    microservice: account
+spec:
+  selector:
+    matchLabels:
+      microservice: account
+  template:
+    metadata:
+      labels:
+        microservice: account
+    spec:
+      containers:
+      - name: account-app
+        image: asf-registry.cloudzcp.io/awesome-test/awesome-account-service:0.1.0
+        volumeMounts:
+        - mountPath: /config
+          name: app-config-volume
+      volumes:
+      - name: app-config-volume
+        configMap:
+          name: account-app-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: account-app
+  labels:
+    microservice: account
+spec:
+  ports:
+  - port: 80
+    targetPort: 8080
+  selector:
+    microservice: account

@@ -1,0 +1,29 @@
+# application-overlay.yaml 에는 server.port={port} 으로 변경하는 코드가 있다
+# 아래 패치를 통해 모든 포트를 8080 에서 application에서 사용할 Port 정보로 변경
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  # base와 동일하게 명시해서 patch시 어떤 deployment에 대한 수정인지 kustomize가 인식
+  name: app
+spec:
+  template:
+    spec:
+      containers:
+        # spec.containers[] 에서는 name이 key다. name: app 을 명시해서 어레이를 수정
+        - name: app
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 15
+            timeoutSeconds: 2
+            periodSeconds: 3
+            failureThreshold: 2
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 15
+            timeoutSeconds: 3
+            periodSeconds: 10
+            failureThreshold: 5

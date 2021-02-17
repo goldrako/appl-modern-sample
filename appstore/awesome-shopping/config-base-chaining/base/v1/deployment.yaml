@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app
+spec:
+  template:
+    spec:
+      containers:
+      - name: app
+        image: asf-registry.cloudzcp.io/awesome-test/awesome-service
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - mountPath: /config
+          name: app-config-volume
+      volumes:
+      - name: app-config-volume
+        configMap:
+          name: app-config

@@ -1,0 +1,13 @@
+resources:
+  - deployment.yaml
+  - service.yaml
+  - role.yaml
+  - rb.yaml
+  - sa.yaml
+configMapGenerator:
+  - name: system-config
+    literals:
+      - SPRING_CONFIG_LOCATION=classpath:/,classpath:/config/,file:/,file:/pattern/dbaccess.yaml,file:/pattern/messagechannel.yaml,file:/pattern/session.yaml,file:/pattern/cache.yaml,file:/pattern/metric.yaml,file:/pattern/log.yaml,file:/pattern/tracing-sleuth.yaml,file:/config/,file:/config/application-overlay.yaml
+  - name: app-config
+    files:
+      - application.yaml

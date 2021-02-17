@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: app
+spec:
+  # kustomize commonLabels에 의해 자동 생성
+  # selector:
+  ports:
+  - port: 8080
+    targetPort: 8080
+    name: web
+  - port: 8091
+    targetPort: 8091
+    name: actuator

@@ -1,0 +1,14 @@
+management:
+    health:
+        diskspace.enabled: false
+        circuitbreakers.enabled: true
+        ratelimiters.enabled: false
+    metrics:
+        tags.application: ${spring.application.name}
+        distribution:
+            sla.http.server.requests: "100ms,200ms,400ms"
+            percentiles-histogram:
+                http.server.requests: true
+                resilience4j.circuitbreaker.calls: true
+
+resilience4j.circuitbreaker.metrics.use_legacy_binder: true

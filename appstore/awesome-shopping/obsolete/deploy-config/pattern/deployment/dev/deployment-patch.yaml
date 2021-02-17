@@ -1,0 +1,13 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+      - name: microservice
+        image: cloudsvcdev/spring-webflux-actuator-sample
+#        readinessProbe:
+#          failureThreshold: 2

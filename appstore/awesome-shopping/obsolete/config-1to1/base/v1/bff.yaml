@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bff-app
+  labels:
+    microservice: bff
+spec:
+  selector:
+    matchLabels:
+      microservice: bff
+  template:
+    metadata:
+      labels:
+        microservice: bff
+    spec:
+      containers:
+      - name: bff-app
+        image: asf-registry.cloudzcp.io/awesome-test/awesome-bff-service:0.1.0
+        env:
+        - name: ACCOUNT_URL
+          value: http://$(ACCOUNT_HOST):$(ACCOUNT_PORT)
+        - name: CART_URL
+          value: http://$(CART_HOST):$(CART_PORT)
+        - name: ORDER_URL
+          value: http://$(ORDER_HOST):$(ORDER_PORT)
+        - name: PAYMENT_URL
+          value: http://$(PAYMENT_HOST):$(PAYMENT_PORT)
+        - name: PRODUCT_URL
+          value: http://$(PRODUCT_HOST):$(PRODUCT_PORT)
+        volumeMounts:
+        - mountPath: /config
+          name: app-config-volume
+      volumes:
+      - name: app-config-volume
+        configMap:
+          name: bff-app-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bff-app
+  labels:
+    microservice: bff
+spec:
+  ports:
+  - port: 80
+    targetPort: 8080
+  selector:
+    microservice: bff

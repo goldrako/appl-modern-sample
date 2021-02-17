@@ -1,0 +1,16 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../../common/v1/dev/product
+namePrefix: product-
+commonLabels:
+  microservice: product
+configMapGenerator:
+  - name: app-config
+    behavior: merge
+    files:
+      - application.yaml
+images:
+  - name: asf-registry.cloudzcp.io/awesome-test/awesome-service
+    newName: asf-registry.cloudzcp.io/awesome-test/awesome-product-service
+    newTag: 0.1.0

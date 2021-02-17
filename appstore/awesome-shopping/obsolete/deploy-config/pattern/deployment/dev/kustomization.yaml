@@ -1,0 +1,8 @@
+bases:
+  - ../../../base
+namePrefix: pattern-
+nameSuffix: -deployment-blue
+commonLabels:
+  role: blue
+patchesStrategicMerge:
+  - deployment-patch.yaml

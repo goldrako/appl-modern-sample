@@ -1,0 +1,7 @@
+spring.application.name: awesome-account
+server:
+  port: 8080
+management:
+  endpoint:
+    restart:
+      enabled: true

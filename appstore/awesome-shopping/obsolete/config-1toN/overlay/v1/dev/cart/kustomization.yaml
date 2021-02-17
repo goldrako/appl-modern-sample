@@ -1,0 +1,21 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../../../base/v1
+namePrefix: cart-
+commonLabels:
+  microservice: cart
+configMapGenerator:
+  - name: app-config
+    behavior: merge
+    files:
+      - ../../../common/pattern/dev/application-dev.yaml
+      - application.yaml
+patchesStrategicMerge:
+  - ../../../common/legacy/legacy-env-patch.yaml
+  - ../../../common/pattern/dev/backend-cred-patch.yaml
+  - ../../../common/pattern/dev/active-profile-patch.yaml
+images:
+  - name: asf-registry.cloudzcp.io/awesome-test/awesome-service
+    newName: asf-registry.cloudzcp.io/awesome-test/awesome-cart-service
+    newTag: 0.1.0

@@ -1,0 +1,11 @@
+spring:
+  rabbitmq:
+    host: 169.56.171.66
+    port: 5672
+    username: user
+    password: eK8aHoKXXQ
+    virtual-host: instructor
+management:
+  health:
+    rabbit:
+      enabled: false

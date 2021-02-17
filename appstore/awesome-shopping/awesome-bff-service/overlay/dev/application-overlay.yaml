@@ -1,0 +1,38 @@
+spring.application.name: awesome-bff
+server:
+  port: 8080 # patch.yaml 과 동일한 의도의 개별 설정
+management:
+  endpoint:
+    restart:
+      enabled: true
+
+spring:
+  cloud:
+    kubernetes:
+      reload:
+        enabled: false
+  session:
+    redis:
+      namespace: spring:test
+  redis:
+    database: 0
+
+api:
+  account:
+    url: http://account-app-v0-dev:8080
+  accountbank:
+    url: http://account-app-v0-dev:8080
+  cart:
+    url: http://cart-app-v0-dev:8080
+  category:
+    url: http://category-app-v0-dev:8080
+  order:
+    url: http://order-app-v0-dev:8080
+  payment:
+    url: http://payment-app-v0-dev:8080
+  product:
+    url: http://product-app-v0-dev:8080
+# property 참조 우선순위 확인 위한 예제값
+awesome:
+  config: overlay
+  title: null

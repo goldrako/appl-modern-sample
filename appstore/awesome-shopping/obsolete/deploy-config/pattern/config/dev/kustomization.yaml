@@ -1,0 +1,14 @@
+commonLabels:
+# biz 영역 밖의 전체 공통 설정을 지향하므로 overlay가 가지는 라벨 외의 값을 추가로 가진다.
+  biz: modern-platform
+configMapGenerator:
+  - name: pattern-config
+    files:
+      - cache.yaml
+      - session.yaml
+      - messagechannel.yaml
+      - dbaccess.yaml
+      - circuitbreaker.yaml
+      - metric.yaml
+      - log.yaml
+      - tracing-sleuth.yaml

@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: bff-app
+api:
+  account:
+    url: http://account-app-v1-dev:8080
+    # account/kustomization.yaml 에 작성된 vars 선언을 다른 마이크로서비스에 대해서 수행한다면
+    # z_all 에 의한 kustomize build시 아래의 환경변수에 주입될 값이 env-patch.yaml에 의해 적용되게 된다.
+    # url: http://${ACCOUNT_SERVICE_URL}:${ACCOUNT_SERVICE_PORT}
+  cart:
+    url: http://cart-app-v1-dev:8080
+  order:
+    url: http://order-app-v1-dev:8080
+  payment:
+    url: http://payment-app-v1-dev:8080
+  product:
+    url: http://product-app-v1-dev:8080
+awesome:
+  title: null

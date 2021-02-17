@@ -1,0 +1,36 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../../../../base/v1
+  - ../shared/role.yaml
+  - ../shared/sa.yaml
+  - ../shared/secret.yaml
+commonLabels:
+  cluster-tier: dev
+nameSuffix: -v1-dev
+# secretGenerator:
+# - name: mariadb-secret
+#   literals:
+#   - username=admin
+#   - password=qoxSVIJA8q
+# - name: redis-secret
+#   literals:
+#   - password=OIpjz8SOJS
+# - name: rabbitmq-secret
+#   literals:
+#   - username=user
+#   - password=eK8aHoKXXQ
+configMapGenerator:
+  - name: app-config
+    behavior: merge
+    files:
+      - ../shared/application-dev.yaml # TA 설정이 개발자보다 우선순위를 갖게 하기 위한 파일명 선정
+      - application-dev-custom.yaml # account 서비스를 위한 전용 설정. application-dev.yaml 에 spring.profiles.include 가 선언하고 있음.
+patchesStrategicMerge:
+  - ../shared/backend-cred-patch.yaml
+  - ../shared/active-profile-patch.yaml
+  - ../shared/metric-patch.yaml
+  - ../shared/probe-patch.yaml
+  # - ../shared/serviceport-patch.yaml
+  - ../shared/spec-patch.yaml
+  - ../shared/configmap-reader-patch.yaml

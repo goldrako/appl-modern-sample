@@ -1,0 +1,29 @@
+spring.application.name: awesome-product
+spring:
+  datasource:
+    initialization-mode: always
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        use_sql_comments: true
+        format_sql: true
+    open-in-view: false
+    generate-ddl: true
+
+  cache:
+    redis:
+      defaultExpireTime: 600
+      time-to-live: 600
+      key-prefix: "myCache_"
+      use-key-prefix: true
+
+server:
+  port: 8080
+management:
+  endpoint:
+    restart:
+      enabled: true

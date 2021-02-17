@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app # base와 동일하게 명시해서 patch시 어떤 deployment에 대한 수정인지 kustomize가 인식
+spec:
+  template:
+    spec:
+      containers:
+        - name: app # spec.containers[] 에서는 name이 key다. name: app 을 명시해서 어레이를 수정
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8091
+            initialDelaySeconds: 15
+            timeoutSeconds: 2
+            periodSeconds: 3
+            failureThreshold: 2
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8091
+            initialDelaySeconds: 15
+            timeoutSeconds: 3
+            periodSeconds: 10
+            failureThreshold: 5
+          ports:
+            - containerPort: 8091
+              name: actuator
+            - containerPort: 8080
+              name: web
+            - $patch: replace

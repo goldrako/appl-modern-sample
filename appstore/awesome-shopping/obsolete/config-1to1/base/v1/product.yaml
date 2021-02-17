@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: product-app
+  labels:
+    microservice: product
+spec:
+  selector:
+    matchLabels:
+      microservice: product
+  template:
+    metadata:
+      labels:
+        microservice: product
+    spec:
+      containers:
+      - name: product-app
+        image: asf-registry.cloudzcp.io/awesome-test/awesome-product-service:0.1.0
+        volumeMounts:
+        - mountPath: /config
+          name: app-config-volume
+      volumes:
+      - name: app-config-volume
+        configMap:
+          name: product-app-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: product-app
+  labels:
+    microservice: product
+spec:
+  ports:
+  - port: 80
+    targetPort: 8080
+  selector:
+    microservice: product

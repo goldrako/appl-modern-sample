@@ -1,0 +1,41 @@
+resources:
+  - ../../../base/v1
+nameSuffix: -dev
+namespace: awesome-shopping-dev
+patches:
+- path: ../../../common/pattern/dev/active-profile-patch.json
+  target:
+    group: apps
+    version: v1
+    kind: Deployment
+configMapGenerator:
+  - name: bff-app-config
+    behavior: merge
+    files:
+    - properties/bff-config/application-dev.yaml
+    - ../../../common/pattern/dev/application.yaml
+  - name: account-app-config
+    behavior: merge
+    files:
+    - properties/account-config/application-dev.yaml
+    - ../../../common/pattern/dev/application.yaml
+  - name: cart-app-config
+    behavior: merge
+    files:
+    - properties/cart-config/application-dev.yaml
+    - ../../../common/pattern/dev/application.yaml
+  - name: order-app-config
+    behavior: merge
+    files:
+    - properties/order-config/application-dev.yaml
+    - ../../../common/pattern/dev/application.yaml
+  - name: payment-app-config
+    behavior: merge
+    files:
+    - properties/payment-config/application-dev.yaml
+    - ../../../common/pattern/dev/application.yaml
+  - name: product-app-config
+    behavior: merge
+    files:
+    - properties/product-config/application-dev.yaml
+    - ../../../common/pattern/dev/application.yaml

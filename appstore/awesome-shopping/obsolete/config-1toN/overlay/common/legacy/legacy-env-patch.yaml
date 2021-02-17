@@ -1,0 +1,14 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app
+spec:
+  template:
+    spec:
+      containers:
+      - name: app
+        env:
+        - name: LEGACY_ABC_SERVICE
+          value: http://123.123.123.123:9999
+        - name: LEGACY_XYZ_SERVICE
+          value: http://111.111.11.111:11111

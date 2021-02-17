@@ -1,0 +1,19 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../../common/v1/dev/account # 필수 명시 공통오버레이
+namePrefix: account-
+commonLabels:
+  microservice: account
+configMapGenerator:
+  - name: app-config
+    behavior: merge
+    files:
+      - application.yaml
+images:
+  - name: asf-registry.cloudzcp.io/awesome-test/awesome-service
+    newName: asf-registry.cloudzcp.io/awesome-test/awesome-account-service
+    newTag: 0.1.0
+replicas:
+  - name: app
+    count: 1

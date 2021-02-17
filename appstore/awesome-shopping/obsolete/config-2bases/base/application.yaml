@@ -1,0 +1,4 @@
+server:
+  port: 8080 # TODO overlay에서의 port변경 예제 요청됨. deployment/service patch까지.
+# awesome:
+#   config: base

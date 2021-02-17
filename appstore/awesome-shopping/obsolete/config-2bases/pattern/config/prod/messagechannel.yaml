@@ -1,0 +1,18 @@
+spring:
+  cloud:
+    stream:
+      binders:
+        rabbitmq:
+          type: rabbit
+          environment:
+            spring:
+              rabbitmq:
+                # host: awesome-shopping-mq
+                host: https://production-rabbit-mq
+                port: 15672
+                username: production-mq-user
+                password: production-mq-password
+management:
+  health:
+    rabbit:
+      enabled: false

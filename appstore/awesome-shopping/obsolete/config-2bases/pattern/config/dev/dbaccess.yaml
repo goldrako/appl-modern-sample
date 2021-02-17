@@ -1,0 +1,114 @@
+---
+spring:
+  microservice-name: awesome-account
+  datasource:
+    platform: mariadb
+    url: jdbc:mariadb://169.56.162.104:3306/instructor
+    username: admin
+    password: qoxSVIJA8q
+    driver-class-name: org.mariadb.jdbc.Driver
+
+  h2:
+    console:
+      enabled: false
+  jpa:
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    database: mysql
+---
+spring:
+  microservice-name: awesome-bff
+  datasource:
+    platform: mariadb
+    url: jdbc:mariadb://169.56.162.104:3306/instructor
+    username: admin
+    password: qoxSVIJA8q
+    driver-class-name: org.mariadb.jdbc.Driver
+
+  h2:
+    console:
+      enabled: false
+  jpa:
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    database: mysql
+---
+spring:
+  microservice-name: awesome-cart
+  datasource:
+    platform: mariadb
+    url: jdbc:mariadb://169.56.162.104:3306/instructor
+    username: admin
+    password: qoxSVIJA8q
+    driver-class-name: org.mariadb.jdbc.Driver
+
+  h2:
+    console:
+      enabled: false
+  jpa:
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    database: mysql
+---
+spring:
+  microservice-name: awesome-order
+  datasource:
+    platform: mariadb
+    url: jdbc:mariadb://169.56.162.104:3306/instructor
+    username: admin
+    password: qoxSVIJA8q
+    driver-class-name: org.mariadb.jdbc.Driver
+
+  h2:
+    console:
+      enabled: false
+  jpa:
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    database: mysql
+---
+spring:
+  microservice-name: awesome-payment
+  datasource:
+    platform: mariadb
+    url: jdbc:mariadb://169.56.162.104:3306/instructor
+    username: admin
+    password: qoxSVIJA8q
+    driver-class-name: org.mariadb.jdbc.Driver
+
+  h2:
+    console:
+      enabled: false
+  jpa:
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    database: mysql
+---
+spring:
+  microservice-name: awesome-product
+  datasource:
+    platform: mariadb
+    url: jdbc:mariadb://169.56.162.104:3306/instructor
+    username: admin
+    password: qoxSVIJA8q
+    driver-class-name: org.mariadb.jdbc.Driver
+
+  h2:
+    console:
+      enabled: false
+  jpa:
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    database: mysql

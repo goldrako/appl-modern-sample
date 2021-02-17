@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    platform: mariadb
+    url: jdbc:mariadb://169.123.45.67:3306/productiondb
+    username: production-db-user
+    password: production-db-password
+    driver-class-name: org.mariadb.jdbc.Driver
+    initialization-mode: always
+  h2:
+    console:
+      enabled: false

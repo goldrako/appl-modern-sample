@@ -1,0 +1,9 @@
+resources:
+  - ../account
+  - ../bff
+  - ../cart
+  - ../order
+  - ../payment
+  - ../product
+commonLabels:
+  org: awesome-shopping

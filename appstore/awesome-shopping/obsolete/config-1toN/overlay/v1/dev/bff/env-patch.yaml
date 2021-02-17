@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app
+spec:
+  template:
+    spec:
+      containers:
+      - name: app
+        env:
+        - name: ACCOUNT_SERVICE_URL
+          value: $(ACCOUNT_SERVICE_URL)
+        - name: ACCOUNT_SERVICE_PORT
+          value: $(ACCOUNT_SERVICE_PORT)
+        - name: CART_SERVICE_URL
+          value: $(CART_SERVICE_URL)
+        - name: CART_SERVICE_PORT
+          value: $(CART_SERVICE_PORT)
+        - name: ORDER_SERVICE_URL
+          value: $(ORDER_SERVICE_URL)
+        - name: ORDER_SERVICE_PORT
+          value: $(ORDER_SERVICE_PORT)
+        - name: PAYMENT_SERVICE_URL
+          value: $(PAYMENT_SERVICE_URL)
+        - name: PAYMENT_SERVICE_PORT
+          value: $(PAYMENT_SERVICE_PORT)
+        - name: PRODUCT_SERVICE_URL
+          value: $(PRODUCT_SERVICE_URL)
+        - name: PRODUCT_SERVICE_PORT
+          value: $(PRODUCT_SERVICE_PORT)

@@ -1,0 +1,99 @@
+resources:
+  - account.yaml
+  - bff.yaml
+  - cart.yaml
+  - order.yaml
+  - payment.yaml
+  - product.yaml
+commonLabels:
+  org: awesome-shopping
+configMapGenerator:
+  - name: bff-app-config
+    files:
+    - properties/bff-config/application.properties
+  - name: account-app-config
+    files:
+    - properties/account-config/application.properties
+  - name: cart-app-config
+    files:
+    - properties/cart-config/application.properties
+  - name: order-app-config
+    files:
+    - properties/order-config/application.properties
+  - name: payment-app-config
+    files:
+    - properties/payment-config/application.properties
+  - name: product-app-config
+    files:
+    - properties/product-config/application.properties
+vars:
+- name: ACCOUNT_HOST
+  objref:
+    apiVersion: v1
+    kind: Service
+    name: account-app
+  fieldref:
+    fieldpath: metadata.name
+- name: ACCOUNT_PORT
+  objref:
+    apiVersion: v1
+    kind: Service
+    name: account-app
+  fieldref:
+    fieldpath: spec.ports.0.port
+- name: CART_HOST
+  objref:
+    apiVersion: v1
+    kind: Service
+    name: cart-app
+  fieldref:
+    fieldpath: metadata.name
+- name: CART_PORT
+  objref:
+    apiVersion: v1
+    kind: Service
+    name: cart-app
+  fieldref:
+    fieldpath: spec.ports.0.port
+- name: ORDER_HOST
+  objref:
+    apiVersion: v1
+    kind: Service
+    name: order-app
+  fieldref:
+    fieldpath: metadata.name
+- name: ORDER_PORT
+  objref:
+    apiVersion: v1
+    kind: Service
+    name: order-app
+  fieldref:
+    fieldpath: spec.ports.0.port
+- name: PAYMENT_HOST
+  objref:
+    apiVersion: v1
+    kind: Service
+    name: payment-app
+  fieldref:
+    fieldpath: metadata.name
+- name: PAYMENT_PORT
+  objref:
+    apiVersion: v1
+    kind: Service
+    name: payment-app
+  fieldref:
+    fieldpath: spec.ports.0.port
+- name: PRODUCT_HOST
+  objref:
+    apiVersion: v1
+    kind: Service
+    name: product-app
+  fieldref:
+    fieldpath: metadata.name
+- name: PRODUCT_PORT
+  objref:
+    apiVersion: v1
+    kind: Service
+    name: product-app
+  fieldref:
+    fieldpath: spec.ports.0.port

@@ -1,0 +1,10 @@
+spring:
+    sleuth:
+        traceId128: true
+    sampler:
+        probability: 1.0
+    zipkin:
+        baseUrl: http://zipkin.msa-framework:9411
+logging:
+    pattern:
+        level: "%X{traceId} %X{spanId} %5p"

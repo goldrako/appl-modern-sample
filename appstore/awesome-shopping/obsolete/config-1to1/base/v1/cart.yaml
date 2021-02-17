@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cart-app
+  labels:
+    microservice: cart
+spec:
+  selector:
+    matchLabels:
+      microservice: cart
+  template:
+    metadata:
+      labels:
+        microservice: cart
+    spec:
+      containers:
+      - name: cart-app
+        image: asf-registry.cloudzcp.io/awesome-test/awesome-cart-service:0.1.0
+        volumeMounts:
+        - mountPath: /config
+          name: app-config-volume
+      volumes:
+      - name: app-config-volume
+        configMap:
+          name: cart-app-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cart-app
+  labels:
+    microservice: cart
+spec:
+  ports:
+  - port: 80
+    targetPort: 8080
+  selector:
+    microservice: cart

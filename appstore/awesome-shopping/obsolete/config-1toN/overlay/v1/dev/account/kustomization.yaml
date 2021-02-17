@@ -1,0 +1,49 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../../../base/v1
+namePrefix: account-
+commonLabels:
+  microservice: account
+configMapGenerator:
+  - name: app-config
+    behavior: merge
+    files:
+      - ../../../common/pattern/dev/application-dev.yaml
+      - application.yaml
+patchesStrategicMerge:
+  - ../../../common/legacy/legacy-env-patch.yaml
+  - ../../../common/pattern/dev/backend-cred-patch.yaml
+  - ../../../common/pattern/dev/active-profile-patch.yaml
+  - metric-patch.yaml
+  - probe-patch.yaml
+  - serviceport-patch.yaml
+  - spec-patch.yaml
+images:
+  - name: asf-registry.cloudzcp.io/awesome-test/awesome-service
+    newName: asf-registry.cloudzcp.io/awesome-test/awesome-account-service
+    newTag: 0.1.0
+replicas:
+  - name: app
+    count: 1
+# BFF에서 account 서비스의 접근 경로를 reference로 참조하기 위해서는 
+# 여기서 변수를 선언한 뒤 BFF의 deployment에 환경변수로 이 값들을 $(ACCOUNT_SERVICE_URL)
+# 형태로 kustomize로 주입하고 application.yaml 에서 ${ACCOUNT_SERVICE_URL} 형태로
+# 환경변수를 추출해서 사용할 수가 있다. 
+# 다만 오버레이별로 마이크로서비스를 나누어놓은 의미가 없어지기에 이 부분은 형태만 참고하고 미사용 상태로
+# 주석처리
+# vars:
+# - name: ACCOUNT_SERVICE_URL
+#   objref:
+#     apiVersion: v1
+#     kind: Service
+#     name: app
+#   fieldref:
+#     fieldpath: metadata.name
+# - name: ACCOUNT_SERVICE_PORT
+#   objref:
+#     apiVersion: v1
+#     kind: Service
+#     name: app
+#   fieldref:
+#     fieldpath: spec.ports.0.port
