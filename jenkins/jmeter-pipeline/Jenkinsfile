@@ -2,15 +2,11 @@
 def label = "jenkins-${UUID.randomUUID().toString()}"
 
 def ZCP_USERID='hscho'
-// def K8S_NAMESPACE='msa-framework-test'
 
 timestamps {
     podTemplate(label:label,
         serviceAccount: "zcp-system-sa-${ZCP_USERID}",
         containers: [
-            // containerTemplate(name: 'maven', image: 'maven:3.5.2-jdk-8-alpine', ttyEnabled: true, command: 'cat'),
-            // containerTemplate(name: 'docker', image: 'docker:17-dind', ttyEnabled: true, command: 'dockerd-entrypoint.sh', privileged: true),
-            // containerTemplate(name: 'kubectl', image: 'lachlanevenson/k8s-kubectl:v1.18.2', ttyEnabled: true, command: 'cat'),
             containerTemplate(name: 'jmeter', image: 'justb4/jmeter:5.3', ttyEnabled: true, command: 'cat')
         ],
         volumes: [
@@ -27,6 +23,8 @@ timestamps {
                     sleep 300
                     // mavenBuild goal: 'clean package -s appstore/awesome-shopping/settings.xml -DskipTests=true -f appstore/awesome-shopping/awesome-account-service/pom.xml', systemProperties:['maven.repo.local':"/root/.m2/${JOB_NAME}"]
                     // sh 'kustomize build --load_restrictor none --enable_kyaml=false appstore/awesome-shopping/config-base-chaining/overlay/v1/dev/account > deploy.yaml'
+
+                    // TODO : jmeter에서 사용할 명령어 추가
                 }
             }
         }
