@@ -2,9 +2,7 @@
 def label = "jenkins-${UUID.randomUUID().toString()}"
 
 def ZCP_USERID='hscho'
-// def DOCKER_IMAGE='modern/example/awesome-account-service'
-// def DOCKER_IMAGE_VERSION='0.0.1'
-// def K8S_NAMESPACE='msa-framework-test'
+def K8S_NAMESPACE='msa-framework-test'
 
 timestamps {
     podTemplate(label:label,
