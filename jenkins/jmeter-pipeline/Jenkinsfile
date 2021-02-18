@@ -1,0 +1,33 @@
+@Library('retort-lib') _
+def label = "jenkins-${UUID.randomUUID().toString()}"
+
+def ZCP_USERID='hscho'
+// def DOCKER_IMAGE='modern/example/awesome-account-service'
+// def DOCKER_IMAGE_VERSION='0.0.1'
+// def K8S_NAMESPACE='msa-framework-test'
+
+timestamps {
+    podTemplate(label:label,
+        serviceAccount: "zcp-system-sa-${ZCP_USERID}",
+        containers: [
+            containerTemplate(name: 'jmeter', image: 'justb4/jmeter:5.3', ttyEnabled: true, command: 'cat')
+        ],
+        volumes: [
+            persistentVolumeClaim(mountPath: '/root/.m2', claimName: 'zcp-jenkins-mvn-repo')
+        ]) {
+    
+        node(label) {
+            stage('SOURCE CHECKOUT') {
+                def repo = checkout scm
+            }
+    
+            stage('JMETER') {
+                container('jmeter') {
+                    sleep 300
+                    // mavenBuild goal: 'clean package -s appstore/awesome-shopping/settings.xml -DskipTests=true -f appstore/awesome-shopping/awesome-account-service/pom.xml', systemProperties:['maven.repo.local':"/root/.m2/${JOB_NAME}"]
+                    // sh 'kustomize build --load_restrictor none --enable_kyaml=false appstore/awesome-shopping/config-base-chaining/overlay/v1/dev/account > deploy.yaml'
+                }
+            }
+        }
+    }
+}
