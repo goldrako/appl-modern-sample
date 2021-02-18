@@ -1,0 +1,51 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: quote-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: quote-app
+  template:
+    metadata:
+      labels:
+        app: quote-app
+    spec:
+      containers:
+      - name: app-container
+        image: cloudsvcdev/quote-spring-app
+        imagePullPolicy: IfNotPresent
+        env:
+          - name: REDIS_HOST
+            value: $(REDIS_HOST)
+          - name: REDIS_PORT
+            value: "$(REDIS_PORT)"  
+        resources:
+          requests:
+            cpu: 200m
+            memory: 256Mi
+        ports:
+          - containerPort: 8080
+        volumeMounts:
+          - mountPath: /config
+            name: app-config-volume
+            readOnly: true
+      volumes:
+        - name: app-config-volume
+          configMap:
+            name: quote-app-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: quote-app-service
+spec:
+  type: ClusterIP
+  ports:
+  - name: http
+    port: 8080
+    targetPort: 8080
+  selector:
+    app: quote-app

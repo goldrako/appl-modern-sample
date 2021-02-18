@@ -1,0 +1,15 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web
+spec:
+  template:
+    spec:
+      containers:
+      - name: app-container
+        env:
+          - name: PAGE
+            valueFrom: 
+              configMapKeyRef:
+                name: web-config
+                key: new-index.ejs

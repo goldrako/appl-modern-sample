@@ -1,0 +1,35 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../../base/v1
+  # - https://github.com/cloudsvcdev/kustomize-fundamentals/06-gitbase/base/v1?ref=74560e913d7dd26bd0e6e48144d0d9770cc498f3
+  - namespace.yaml
+commonLabels:
+  project: show-quote
+  tier: dev
+commonAnnotations:
+  app.skcc-quote.io/url: $(QUOTE_APP_URL)
+namespace: quote-dev
+nameSuffix: -dev
+images:
+- name: cloudsvcdev/render-api-html
+  newTag: latest
+replicas:
+- count: 1
+  name: quote-app
+configMapGenerator:
+  - name: web-config
+    files:
+      - new-index.ejs
+  - name: quote-app-config
+    behavior: merge
+    files:
+      - application-dev.properties
+patchesStrategicMerge:
+  - redis-patch.yaml
+  - web-patch.yaml
+  - quote-probe-patch.yaml
+  - quote-port-patch.yaml
+  - quote-property-patch.yaml
+  - ../../../common/limit-patch.yaml # kustomize build --load_restrictor none
+  # limit-patch is actually not common one. patch is targeting quote deployment.
